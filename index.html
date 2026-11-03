@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>極限題庫:原題與詳解</title>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--ink:#1b2430;--mute:#5d6b7c;--line:#d9dfe7;--a:#1f4fb4;--a-bg:#e4ecfb;--b:#c4601a;--b-bg:#fbebdd;--ok:#14733f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10151c;--card:#19202a;--ink:#e6ebf2;--mute:#9aa7b8;--line:#2b3542;--a:#8fb3ff;--a-bg:#1e2c4a;--b:#f0a468;--b-bg:#3a2a1c;--ok:#6fd49a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 14px 60px}
+h1{font-size:1.5rem;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 16px;font-size:.92rem}
+.tabs{display:flex;gap:8px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5}
+.tab{flex:1;padding:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;font:inherit;font-weight:700;cursor:pointer}
+.tab.on.a{border-color:var(--a);background:var(--a-bg);color:var(--a)}
+.tab.on.b{border-color:var(--b);background:var(--b-bg);color:var(--b)}
+.tab:focus-visible,.btn:focus-visible,summary:focus-visible,.nav a:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+details.sum{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0 14px}
+details.sum summary{font-weight:700;cursor:pointer}
+.sum ol{padding-left:20px;margin:8px 0}
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+.nav a{min-width:42px;text-align:center;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--a);text-decoration:none;font-weight:700;font-size:.9rem}
+.q{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--a);border-radius:8px;padding:14px 16px;margin:12px 0}
+.q.b{border-left-color:var(--b)}
+.hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.id{font-weight:800;font-size:1.1rem;color:var(--a)}
+.tag{font-size:.78rem;padding:1px 8px;border-radius:99px;background:var(--a-bg);color:var(--a)}
+.tag.t{background:var(--line);color:var(--mute)}
+.prob{overflow-x:auto;padding:4px 0}
+.btn{margin-top:6px;padding:6px 14px;border-radius:6px;border:1px solid var(--a);background:transparent;color:var(--a);font:inherit;font-weight:700;cursor:pointer}
+.sol{display:none;margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+.sol.open{display:block}
+.sol ol{padding-left:22px;margin:6px 0}
+.sol li{margin:6px 0;overflow-x:auto}
+.ans{margin-top:8px;padding:8px 12px;background:var(--a-bg);border-radius:6px;font-weight:700;color:var(--ok);overflow-x:auto}
+.q.b .id,.rel a.bb{color:var(--b)}.tag.b{background:var(--b-bg);color:var(--b)}.tag.v{background:transparent;border:1px solid var(--line);color:var(--mute)}.btn.b{border-color:var(--b);color:var(--b)}.rel{margin-top:6px;font-size:.88rem;color:var(--mute)}.rel a{color:var(--a);font-weight:700;text-decoration:none;padding:2px 4px}#navB a{color:var(--b)}#navB a:hover,.nav a:hover{background:var(--line)}
+.wait{padding:24px;text-align:center;color:var(--mute);background:var(--card);border:1px dashed var(--line);border-radius:8px}
+</style>
+</head>
+<body>
+<main>
+<h1>極限題庫:原題與詳解</h1>
+<p class="sub">先自己做,再點「看詳解」核對。原題 A1~A25、延伸題 B1~B50 都有詳解,可互相跳轉。</p>
+<div class="tabs" role="tablist">
+<button class="tab a on" id="tA" role="tab">原題 25 題</button>
+<button class="tab b" id="tB" role="tab">延伸題 50 題</button>
+</div>
+<div id="viewA">
+<details class="sum"><summary>公式總整理(點開)</summary>
+<ol>
+<li><b>無窮遠處抓最高次</b>:同除最高次;分子次方大於分母 → \(\pm\infty\),小於 → 0,相等 → 係數比。</li>
+<li><b>負無窮的根號</b>:\(x\to-\infty\) 時 \(\sqrt{x^2}=|x|=-x\),答案容易差一個負號。</li>
+<li><b>指數型數列</b>:同除底數最大的一項,\(r^n\to0\ (|r|<1)\)。</li>
+<li><b>平方和</b>:\(1^2+\cdots+n^2=\frac{n(n+1)(2n+1)}{6}\)。</li>
+<li><b>有理化</b>:根號相減乘以共軛,\((\sqrt a-\sqrt b)(\sqrt a+\sqrt b)=a-b\)。</li>
+<li><b>左右極限</b>:絕對值在分界點要拆開,左右不相等 → 極限不存在。</li>
+<li><b>洛必達</b>:\(\frac00\) 或 \(\frac\infty\infty\) 才能用,上下各自微分;每次用完要確認形式。</li>
+<li><b>取 ln</b>:\(1^\infty,\ 0^0,\ \infty^0\) 令 \(y=f^g\),先求 \(\ln y=g\ln f\) 的極限 \(L\),答案 \(e^L\)。</li>
+<li><b>\(0\cdot\infty\)、\(\infty-\infty\)</b>:先化成分式再用洛必達或通分。</li>
+<li><b>常用極限</b>:\(\frac{\sin x}{x}\to1,\ \frac{e^x-1}{x}\to1,\ \frac{\ln(1+x)}{x}\to1,\ 1-\cos u\approx\frac{u^2}{2}\)。</li>
+</ol></details>
+<div class="nav" id="navA"></div>
+<div id="listA"></div>
+</div>
+<div id="viewB" hidden><div class="nav" id="navB"></div><div id="listB"></div></div>
+</main>
+
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'},startup:{typeset:false}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<script>
+const RAW = String.raw`
+## A1 ;; 無窮遠處、負號陷阱 ;; \lim_{x\to-\infty}\frac{\sqrt{4x^2+10}}{3x+6} ;; -\frac23
+- 分子最高次是 \(\sqrt{4x^2}=2|x|\),常數 10、6 在無窮遠處可忽略。
+- \(x\to-\infty\) 所以 \(x<0\),\(|x|=-x\),分子約為 \(-2x\)。
+- \(\dfrac{-2x}{3x}=-\dfrac23\)。
+## A2 ;; 指數型數列 ;; \lim_{n\to\infty}\frac{3\cdot3^n}{3^n-2^n} ;; 3
+- 分子分母同除 \(3^n\)(底數最大的項)。
+- 得 \(\dfrac{3}{1-(2/3)^n}\)。
+- \((2/3)^n\to0\),所以極限為 \(\dfrac31=3\)。
+## A3 ;; 平方和公式 ;; \lim_{n\to\infty}\frac{1^2+2^2+\cdots+n^2}{2n^3} ;; \frac16
+- 用 \(1^2+\cdots+n^2=\dfrac{n(n+1)(2n+1)}{6}\)。
+- 原式 \(=\dfrac{n(n+1)(2n+1)}{12n^3}\),最高次係數 \(\dfrac{1\cdot2}{12}\)。
+- 所以答案 \(\dfrac16\)。
+## A4 ;; 通分約分 ;; \lim_{x\to0}\frac1x\left(\frac1{5+x}-\frac15\right) ;; -\frac1{25}
+- 括號內通分:\(\dfrac{5-(5+x)}{5(5+x)}=\dfrac{-x}{25+5x}\)。
+- 乘上 \(\dfrac1x\),約掉 \(x\),得 \(\dfrac{-1}{25+5x}\)。
+- \(x\to0\):\(-\dfrac1{25}\)。
+## A5 ;; 有理化、負無窮 ;; \lim_{x\to-\infty}\left(\sqrt{x^2+5x+6}+x\right) ;; -\frac52
+- 乘共軛 \(\sqrt{x^2+5x+6}-x\):分子 \(=(x^2+5x+6)-x^2=5x+6\)。
+- 同除 \(x\)(\(x<0\)),此時 \(\sqrt{x^2+5x+6}\,/\,x=-\sqrt{1+5/x+6/x^2}\to-1\)。
+- 分母變成 \(-1-1=-2\),分子 \(\to5\),答案 \(\dfrac5{-2}=-\dfrac52\)。
+## A6 ;; 直接代入 ;; \lim_{x\to0}\frac{1}{1+x} ;; 1
+- 函數在 \(x=0\) 連續,直接代入。
+- \(\dfrac1{1+0}=1\)。
+## A7 ;; 取 ln、洛必達 ;; \lim_{x\to0}(1+x)^{1/x} ;; e
+- 型態 \(1^\infty\),令 \(y=(1+x)^{1/x}\),取 \(\ln y=\dfrac{\ln(1+x)}{x}\)。
+- 此時為 \(\frac00\),洛必達:\(\dfrac{1/(1+x)}{1}\to1\)。
+- \(\ln y\to1\),所以 \(y\to e^1=e\)。
+## A8 ;; 0·∞ 化成分式 ;; \lim_{x\to0^+}x\ln x ;; 0
+- \(0\cdot(-\infty)\) 型,改寫為 \(\dfrac{\ln x}{1/x}\),成為 \(\frac{-\infty}{\infty}\)。
+- 洛必達:\(\dfrac{1/x}{-1/x^2}=-x\)。
+- \(x\to0^+\):答案 \(0\)。
+## A9 ;; 洛必達 ;; \lim_{x\to0}\frac{e^x-1}{x} ;; 1
+- \(\frac00\) 型,上下微分:\(\dfrac{e^x}{1}\)。
+- 代入 \(x=0\):\(e^0=1\)。
+## A10 ;; 取 ln、1^∞ ;; \lim_{n\to\infty}\left(1+\frac kn\right)^{nt} ;; e^{kt}
+- 型態 \(1^\infty\),取 ln:\(t\cdot\dfrac{\ln(1+k/n)}{1/n}\),為 \(\frac00\)。
+- 洛必達(對 \(n\) 微分):分子 \(\dfrac{-k/n^2}{1+k/n}\),分母 \(-\dfrac1{n^2}\),化簡得 \(\dfrac{k}{1+k/n}\to k\)。
+- \(\ln y\to kt\),答案 \(e^{kt}\)。
+## A11 ;; 最高次相同 ;; \lim_{n\to\infty}\frac{5n^3+n}{1+2n^2-n^3} ;; -5
+- 分子分母最高次都是 \(n^3\)。
+- 取係數比:\(\dfrac{5}{-1}=-5\)。
+## A12 ;; 分母次方較大 ;; \lim_{n\to\infty}\frac{1+3n+8n^4}{n^5-6} ;; 0
+- 分子最高次 4,分母最高次 5,分母次方較大。
+- 同除 \(n^5\):分子 \(\to0\),分母 \(\to1\),答案 \(0\)。
+## A13 ;; 有理化、負無窮 ;; \lim_{n\to-\infty}\left(\sqrt{n^2+n}+n\right) ;; -\frac12
+- 乘共軛 \(\sqrt{n^2+n}-n\):分子 \(=(n^2+n)-n^2=n\)。
+- 同除 \(n\)(\(n<0\)),\(\sqrt{n^2+n}\,/\,n=-\sqrt{1+1/n}\to-1\)。
+- 分子 \(\to1\),分母 \(\to-1-1=-2\),答案 \(-\dfrac12\)。
+## A14 ;; 分子次方較大 ;; \lim_{n\to\infty}\frac{8-n-n^5}{3n^4+2n^3+n^2+6} ;; -\infty
+- 分子最高次 5,分母最高次 4,分子次方較大,極限為 \(\pm\infty\)。
+- 同除 \(n^4\):分子約 \(-n\),分母 \(\to3\)。
+- 分子 \(\to-\infty\),答案 \(-\infty\)。
+## A15 ;; 有理化(\(x\to0\)) ;; \lim_{x\to0}\frac{\sqrt{x+3}-\sqrt3}{x} ;; \frac{\sqrt3}{6}
+- \(\frac00\),分子乘共軛 \(\sqrt{x+3}+\sqrt3\):分子變 \((x+3)-3=x\)。
+- 分子分母同除 \(x\):\(\dfrac1{\sqrt{x+3}+\sqrt3}\)。
+- 代入 \(x=0\):\(\dfrac1{2\sqrt3}=\dfrac{\sqrt3}{6}\)。
+## A16 ;; 有理化(\(x\to4\)) ;; \lim_{x\to4}\frac{x-4}{\sqrt x-2} ;; 4
+- 分子分母乘 \(\sqrt x+2\):分母變 \(x-4\)。
+- 與分子 \(x-4\) 約分,剩 \(\sqrt x+2\)。
+- 代入 \(x=4\):\(2+2=4\)。(也可把 \(x-4\) 看成 \((\sqrt x-2)(\sqrt x+2)\))
+## A17 ;; 左右極限 ;; \lim_{x\to3}\frac{|x-3|}{x-3} ;; \text{不存在}
+- 右極限 \(x\to3^+\):\(|x-3|=x-3\),值為 \(1\)。
+- 左極限 \(x\to3^-\):\(|x-3|=-(x-3)\),值為 \(-1\)。
+- 左右極限不相等,所以極限不存在。
+## A18 ;; 二元極限、提公因式、洛必達 ;; \lim_{(x,y)\to(0,3)}\frac{xy-x^2}{\sin x} ;; 3
+- 提出 \(x\):\(\dfrac{xy-x^2}{\sin x}=\dfrac{x(y-x)}{\sin x}\)。
+- \(y\to3\),代入 \(y=3\) 得 \(\dfrac{3x-x^2}{\sin x}\),為 \(\frac00\),洛必達:\(\dfrac{3-2x}{\cos x}\)。
+- 代入 \(x=0\):\(\dfrac{3}{1}=3\)。
+## A19 ;; 洛必達 ;; \lim_{x\to0}\frac{x+\sin x}{\tan x} ;; 2
+- \(\frac00\),上下微分:\(\dfrac{1+\cos x}{\sec^2x}\)。
+- 代入 \(x=0\):\(\dfrac{1+1}{1}=2\)。
+## A20 ;; 洛必達、指數微分 ;; \lim_{x\to0}\frac{e^x-2^x}{\sin x} ;; 1-\ln2
+- \(\frac00\),上下微分。注意 \((2^x)'=2^x\ln2\)。
+- 得 \(\dfrac{e^x-2^x\ln2}{\cos x}\)。
+- 代入 \(x=0\):\(\dfrac{1-\ln2}{1}=1-\ln2\)。
+## A21 ;; 化成分式、洛必達兩次 ;; \lim_{x\to\infty}x^2\left(1-\cos\frac9x\right) ;; \frac{81}2
+- \(\infty\cdot0\) 型,改寫為 \(\dfrac{1-\cos\frac9x}{1/x^2}\),為 \(\frac00\)。
+- 洛必達第一次:分子 \(-\frac9{x^2}\sin\frac9x\),分母 \(-\frac2{x^3}\),化簡得 \(\dfrac92\,x\sin\dfrac9x\)。
+- 再把 \(x\sin\frac9x\) 寫成 \(\dfrac{\sin\frac9x}{1/x}\),洛必達第二次:\(\dfrac{\cos\frac9x\cdot(-\frac9{x^2})}{-\frac1{x^2}}=9\cos\dfrac9x\to9\)。
+- 答案 \(\dfrac92\times9=\dfrac{81}2\)。
+## A22 ;; 0·∞ 化成分式 ;; \lim_{x\to\pi}(\pi-x)\tan\frac x2 ;; 2
+- \(0\cdot\infty\),改寫為 \(\dfrac{\pi-x}{\cot(x/2)}\),成為 \(\frac00\)。
+- 洛必達:分子 \(-1\),分母 \(-\csc^2\frac x2\cdot\frac12\)。
+- 代入 \(x=\pi\):\(\csc^2\frac\pi2=1\),得 \(\dfrac{-1}{-1/2}=2\)。
+## A23 ;; ∞−∞ 化成分式 ;; \lim_{x\to\pi/2}(\sec x-\tan x) ;; 0
+- 通分:\(\dfrac1{\cos x}-\dfrac{\sin x}{\cos x}=\dfrac{1-\sin x}{\cos x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{-\cos x}{-\sin x}=\dfrac{\cos x}{\sin x}\)。
+- 代入 \(x=\pi/2\):\(\dfrac01=0\)。
+## A24 ;; ∞−∞ 通分、洛必達兩次 ;; \lim_{x\to1}\left(\frac1{\ln x}-\frac1{x-1}\right) ;; \frac12
+- 通分:\(\dfrac{(x-1)-\ln x}{\ln x\,(x-1)}\),為 \(\frac00\)。
+- 洛必達第一次:\(\dfrac{1-1/x}{\frac{x-1}{x}+\ln x}\),代入仍是 \(\frac00\),要再用一次。
+- 第二次:分子 \(\dfrac1{x^2}\),分母 \(\dfrac1{x^2}+\dfrac1x\),代入 \(x=1\):\(\dfrac1{1+1}=\dfrac12\)。
+## A25 ;; 取 ln、洛必達 ;; \lim_{x\to\infty}\left(2+e^{2x}\right)^{1/x} ;; e^2
+- 型態 \(\infty^0\),取 ln:\(\dfrac{\ln(2+e^{2x})}{x}\),為 \(\frac\infty\infty\)。
+- 洛必達:\(\dfrac{2e^{2x}}{2+e^{2x}}=\dfrac{2}{2e^{-2x}+1}\to2\)。
+- \(\ln y\to2\),所以 \(y\to e^2\)。
+`;
+const P = RAW.trim().split(/^## /m).filter(Boolean).map(b=>{
+  const L=b.trim().split('\n'), h=L[0].split(' ;; ');
+  return {id:h[0].trim(),tag:h[1].trim(),q:h[2].trim(),ans:h[3].trim(),steps:L.slice(1).map(s=>s.replace(/^- /,''))};
+});
+const listA=document.getElementById('listA'), navA=document.getElementById('navA');
+P.forEach(p=>{
+  const n=document.createElement('a'); n.href='#'+p.id; n.textContent=p.id; navA.appendChild(n);
+  const d=document.createElement('section'); d.className='q'; d.id=p.id;
+  d.innerHTML='<div class="hd"><span class="id">'+p.id+'</span><span class="tag t">原題</span><span class="tag">'+p.tag+'</span></div>'
+   +'<div class="prob">\\[ '+p.q+' \\]</div>'
+   +'<button class="btn" aria-expanded="false">看詳解</button>'
+   +'<div class="sol"><ol>'+p.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><div class="ans">答案:\\( '+p.ans+' \\)</div></div>';
+  listA.appendChild(d);
+});
+const RAWB = String.raw`
+## B1 ;; A1 ;; 換數字 ;; 無窮遠處、負號陷阱 ;; \lim_{x\to-\infty}\frac{\sqrt{9x^2+5}}{2x+1} ;; -\frac32
+- 分子 \(\sqrt{9x^2}=3|x|=-3x\)(\(x<0\)),常數可忽略。
+- \(\dfrac{-3x}{2x}=-\dfrac32\)。
+## B2 ;; A1 ;; 換數字 ;; 無窮遠處、負號陷阱 ;; \lim_{x\to-\infty}\frac{\sqrt{16x^2+3}}{5x-2} ;; -\frac45
+- 分子 \(\sqrt{16x^2}=4|x|=-4x\)。
+- \(\dfrac{-4x}{5x}=-\dfrac45\)。
+## B3 ;; A2 ;; 換數字 ;; 指數型數列 ;; \lim_{n\to\infty}\frac{5\cdot6^n}{6^n-5^n} ;; 5
+- 同除 \(6^n\):\(\dfrac{5}{1-(5/6)^n}\)。
+- \((5/6)^n\to0\),答案 \(5\)。
+## B4 ;; A2 ;; 變化題 ;; 指數型數列 ;; \lim_{n\to\infty}\frac{2\cdot4^n+3^n}{4^n-2^n} ;; 2
+- 同除 \(4^n\):\(\dfrac{2+(3/4)^n}{1-(1/2)^n}\)。
+- 分子 \(\to2\),分母 \(\to1\),答案 \(2\)。
+## B5 ;; A3 ;; 換數字 ;; 平方和公式 ;; \lim_{n\to\infty}\frac{1^2+2^2+\cdots+n^2}{3n^3} ;; \frac19
+- 原式 \(=\dfrac{n(n+1)(2n+1)}{18n^3}\)。
+- 最高次係數比 \(\dfrac{2}{18}=\dfrac19\)。
+## B6 ;; A3 ;; 變化題 ;; 平方和公式 ;; \lim_{n\to\infty}\frac{1^2+2^2+\cdots+n^2}{n^3+n} ;; \frac13
+- 原式 \(=\dfrac{n(n+1)(2n+1)}{6(n^3+n)}\),分子最高次 \(2n^3\)。
+- 係數比 \(\dfrac{2}{6}=\dfrac13\)。
+## B7 ;; A4 ;; 換數字 ;; 通分約分 ;; \lim_{x\to0}\frac1x\left(\frac1{3+x}-\frac13\right) ;; -\frac19
+- 通分:\(\dfrac{3-(3+x)}{3(3+x)}=\dfrac{-x}{9+3x}\)。
+- 乘 \(\dfrac1x\) 約掉 \(x\),得 \(\dfrac{-1}{9+3x}\to-\dfrac19\)。
+## B8 ;; A4 ;; 換數字 ;; 通分約分 ;; \lim_{x\to0}\frac1x\left(\frac1{4+x}-\frac14\right) ;; -\frac1{16}
+- 通分:\(\dfrac{4-(4+x)}{4(4+x)}=\dfrac{-x}{16+4x}\)。
+- 約掉 \(x\):\(\dfrac{-1}{16+4x}\to-\dfrac1{16}\)。
+## B9 ;; A5 ;; 換數字 ;; 有理化、負無窮 ;; \lim_{x\to-\infty}\left(\sqrt{x^2+3x+1}+x\right) ;; -\frac32
+- 乘共軛 \(\sqrt{x^2+3x+1}-x\),分子 \(=3x+1\)。
+- 同除 \(x<0\):分母 \(\to-1-1=-2\),分子 \(\to3\),答案 \(-\dfrac32\)。
+## B10 ;; A5 ;; 變化題 ;; 有理化、負無窮 ;; \lim_{x\to-\infty}\left(\sqrt{x^2-4x+5}+x\right) ;; 2
+- 乘共軛 \(\sqrt{x^2-4x+5}-x\),分子 \(=-4x+5\)。
+- 同除 \(x<0\):分子 \(\to-4\),分母 \(\to-2\),答案 \(2\)。
+## B11 ;; A6 ;; 換數字 ;; 直接代入 ;; \lim_{x\to0}\frac1{3+x} ;; \frac13
+- 函數在 \(x=0\) 連續,直接代入。
+- \(\dfrac1{3+0}=\dfrac13\)。
+## B12 ;; A7 ;; 換數字 ;; 取 ln、洛必達 ;; \lim_{x\to0}(1+2x)^{1/x} ;; e^2
+- \(1^\infty\) 型,取 ln:\(\dfrac{\ln(1+2x)}{x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{2/(1+2x)}{1}\to2\),答案 \(e^2\)。
+## B13 ;; A7 ;; 換數字 ;; 取 ln、洛必達 ;; \lim_{x\to0}(1+x)^{3/x} ;; e^3
+- 取 ln:\(\dfrac{3\ln(1+x)}{x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{3/(1+x)}{1}\to3\),答案 \(e^3\)。
+## B14 ;; A7 ;; 變化題 ;; 取 ln、洛必達 ;; \lim_{x\to\infty}\left(1+\frac1x\right)^{x} ;; e
+- \(1^\infty\) 型,取 ln:\(\dfrac{\ln(1+1/x)}{1/x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{-\frac1{x^2}\cdot\frac1{1+1/x}}{-\frac1{x^2}}=\dfrac1{1+1/x}\to1\),答案 \(e\)。
+## B15 ;; A8 ;; 換數字 ;; 0·∞ 化成分式 ;; \lim_{x\to0^+}x^2\ln x ;; 0
+- 改寫為 \(\dfrac{\ln x}{1/x^2}\),為 \(\frac{-\infty}{\infty}\)。
+- 洛必達:\(\dfrac{1/x}{-2/x^3}=-\dfrac{x^2}2\to0\)。
+## B16 ;; A8 ;; 變化題 ;; 0·∞ 化成分式 ;; \lim_{x\to0^+}\sqrt x\,\ln x ;; 0
+- 改寫為 \(\dfrac{\ln x}{x^{-1/2}}\),為 \(\frac{-\infty}{\infty}\)。
+- 洛必達:\(\dfrac{1/x}{-\frac12x^{-3/2}}=-2\sqrt x\to0\)。
+## B17 ;; A8 ;; 變化題 ;; 0·∞ 化成分式 ;; \lim_{x\to\infty}x\,e^{-x} ;; 0
+- 改寫為 \(\dfrac{x}{e^x}\),為 \(\frac\infty\infty\)。
+- 洛必達:\(\dfrac1{e^x}\to0\)。
+## B18 ;; A9 ;; 換數字 ;; 洛必達 ;; \lim_{x\to0}\frac{e^{3x}-1}{x} ;; 3
+- \(\frac00\),上下微分:\(\dfrac{3e^{3x}}{1}\)。
+- 代入 \(x=0\):\(3\)。
+## B19 ;; A9 ;; 換數字 ;; 洛必達 ;; \lim_{x\to0}\frac{e^{2x}-1}{5x} ;; \frac25
+- \(\frac00\),上下微分:\(\dfrac{2e^{2x}}{5}\)。
+- 代入 \(x=0\):\(\dfrac25\)。
+## B20 ;; A10 ;; 換數字 ;; 取 ln、1^∞ ;; \lim_{n\to\infty}\left(1+\frac2n\right)^{3n} ;; e^6
+- 取 ln:\(3\cdot\dfrac{\ln(1+2/n)}{1/n}\),\(\frac00\),洛必達得 \(\dfrac{2}{1+2/n}\to2\)。
+- \(\ln y\to3\cdot2=6\),答案 \(e^6\)。
+## B21 ;; A10 ;; 換數字 ;; 取 ln、1^∞ ;; \lim_{n\to\infty}\left(1+\frac5n\right)^{n} ;; e^5
+- 取 ln:\(\dfrac{\ln(1+5/n)}{1/n}\),\(\frac00\),洛必達得 \(\dfrac5{1+5/n}\to5\)。
+- 答案 \(e^5\)(即 \(k=5,t=1\) 代入 \(e^{kt}\))。
+## B22 ;; A10 ;; 變化題 ;; 取 ln、1^∞ ;; \lim_{n\to\infty}\left(1-\frac1n\right)^{n} ;; e^{-1}
+- 這是 \(k=-1,t=1\):取 ln 得 \(\dfrac{\ln(1-1/n)}{1/n}\)。
+- 洛必達得 \(\dfrac{-1}{1-1/n}\to-1\),答案 \(e^{-1}=\dfrac1e\)。
+## B23 ;; A11 ;; 換數字 ;; 最高次相同 ;; \lim_{n\to\infty}\frac{4n^3-n}{8n^3-n+2} ;; \frac12
+- 分子分母最高次都是 \(n^3\)。
+- 係數比 \(\dfrac48=\dfrac12\)。
+## B24 ;; A11 ;; 換數字 ;; 最高次相同 ;; \lim_{n\to\infty}\frac{3n^3+2n}{5-n^3} ;; -3
+- 最高次都是 \(n^3\)。
+- 係數比 \(\dfrac3{-1}=-3\)。
+## B25 ;; A12 ;; 換數字 ;; 分母次方較大 ;; \lim_{n\to\infty}\frac{2n+7}{n^2-3n} ;; 0
+- 分子最高次 1,分母最高次 2。
+- 分母次方較大,答案 \(0\)。
+## B26 ;; A12 ;; 換數字 ;; 分母次方較大 ;; \lim_{n\to\infty}\frac{5+n^2-n^3}{n^4+1} ;; 0
+- 分子最高次 3,分母最高次 4。
+- 分母次方較大,答案 \(0\)。
+## B27 ;; A13 ;; 換數字 ;; 有理化、負無窮 ;; \lim_{n\to-\infty}\left(\sqrt{n^2+4n}+n\right) ;; -2
+- 乘共軛 \(\sqrt{n^2+4n}-n\),分子 \(=4n\)。
+- 同除 \(n<0\):分子 \(\to4\),分母 \(\to-2\),答案 \(-2\)。
+## B28 ;; A13 ;; 變化題 ;; 有理化、負無窮 ;; \lim_{n\to-\infty}\left(\sqrt{n^2-6n}+n\right) ;; 3
+- 乘共軛 \(\sqrt{n^2-6n}-n\),分子 \(=-6n\)。
+- 同除 \(n<0\):分子 \(\to-6\),分母 \(\to-2\),答案 \(3\)。
+## B29 ;; A14 ;; 換數字 ;; 分子次方較大 ;; \lim_{n\to\infty}\frac{6n^4-n}{n^3+2} ;; +\infty
+- 分子最高次 4,分母最高次 3。
+- 同除 \(n^3\):分子約 \(6n\to+\infty\),答案 \(+\infty\)。
+## B30 ;; A15 ;; 換數字 ;; 有理化(\(x\to0\)) ;; \lim_{x\to0}\frac{\sqrt{x+4}-2}{x} ;; \frac14
+- 乘共軛 \(\sqrt{x+4}+2\),分子變 \(x\),約掉 \(x\)。
+- \(\dfrac1{\sqrt{x+4}+2}\to\dfrac14\)。
+## B31 ;; A15 ;; 換數字 ;; 有理化(\(x\to0\)) ;; \lim_{x\to0}\frac{\sqrt{x+1}-1}{x} ;; \frac12
+- 乘共軛 \(\sqrt{x+1}+1\),分子變 \(x\),約掉 \(x\)。
+- \(\dfrac1{\sqrt{x+1}+1}\to\dfrac12\)。
+## B32 ;; A16 ;; 換數字 ;; 有理化(\(x\to a\)) ;; \lim_{x\to9}\frac{x-9}{\sqrt x-3} ;; 6
+- 乘 \(\sqrt x+3\),分母變 \(x-9\),與分子約分。
+- 剩 \(\sqrt x+3\to6\)。
+## B33 ;; A16 ;; 換數字 ;; 有理化(\(x\to a\)) ;; \lim_{x\to1}\frac{x-1}{\sqrt x-1} ;; 2
+- 乘 \(\sqrt x+1\),分母變 \(x-1\),約分。
+- 剩 \(\sqrt x+1\to2\)。
+## B34 ;; A17 ;; 換數字 ;; 左右極限 ;; \lim_{x\to2}\frac{|x-2|}{x-2} ;; \text{不存在}
+- 右極限 \(x\to2^+\) 為 \(1\),左極限 \(x\to2^-\) 為 \(-1\)。
+- 左右不相等,極限不存在。
+## B35 ;; A18 ;; 換數字 ;; 二元極限、洛必達 ;; \lim_{(x,y)\to(0,2)}\frac{xy-x^2}{\sin x} ;; 2
+- \(y\to2\),代入得 \(\dfrac{2x-x^2}{\sin x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{2-2x}{\cos x}\to2\)。
+## B36 ;; A18 ;; 變化題 ;; 二元極限、洛必達 ;; \lim_{(x,y)\to(0,5)}\frac{xy+x^2}{\sin x} ;; 5
+- \(y\to5\),代入得 \(\dfrac{5x+x^2}{\sin x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{5+2x}{\cos x}\to5\)。
+## B37 ;; A19 ;; 換數字 ;; 洛必達 ;; \lim_{x\to0}\frac{2x+\sin x}{\tan x} ;; 3
+- \(\frac00\),上下微分:\(\dfrac{2+\cos x}{\sec^2x}\)。
+- 代入 \(x=0\):\(\dfrac{3}{1}=3\)。
+## B38 ;; A19 ;; 換數字 ;; 洛必達 ;; \lim_{x\to0}\frac{3x+\sin x}{\tan x} ;; 4
+- \(\frac00\),上下微分:\(\dfrac{3+\cos x}{\sec^2x}\)。
+- 代入 \(x=0\):\(4\)。
+## B39 ;; A20 ;; 換數字 ;; 洛必達、指數微分 ;; \lim_{x\to0}\frac{e^x-3^x}{\sin x} ;; 1-\ln3
+- \(\frac00\),上下微分,\((3^x)'=3^x\ln3\):\(\dfrac{e^x-3^x\ln3}{\cos x}\)。
+- 代入 \(x=0\):\(1-\ln3\)。
+## B40 ;; A20 ;; 變化題 ;; 洛必達、指數微分 ;; \lim_{x\to0}\frac{2^x-1}{\sin x} ;; \ln2
+- \(\frac00\),上下微分:\(\dfrac{2^x\ln2}{\cos x}\)。
+- 代入 \(x=0\):\(\ln2\)。
+## B41 ;; A21 ;; 換數字 ;; 化成分式、洛必達兩次 ;; \lim_{x\to\infty}x^2\left(1-\cos\frac3x\right) ;; \frac92
+- 改寫 \(\dfrac{1-\cos\frac3x}{1/x^2}\),洛必達:\(\dfrac32\,x\sin\dfrac3x\)。
+- 再寫成 \(\dfrac{\sin\frac3x}{1/x}\),洛必達得 \(3\cos\frac3x\to3\),答案 \(\dfrac32\times3=\dfrac92\)。
+## B42 ;; A21 ;; 換數字 ;; 化成分式、洛必達兩次 ;; \lim_{x\to\infty}x^2\left(1-\cos\frac2x\right) ;; 2
+- 改寫 \(\dfrac{1-\cos\frac2x}{1/x^2}\),洛必達:\(x\sin\dfrac2x\)。
+- 再寫成 \(\dfrac{\sin\frac2x}{1/x}\),洛必達得 \(2\cos\frac2x\to2\),答案 \(2\)。
+## B43 ;; A22 ;; 變化題 ;; 0·∞ 化成分式 ;; \lim_{x\to\pi/2}\left(\frac\pi2-x\right)\tan x ;; 1
+- 改寫 \(\dfrac{\pi/2-x}{\cot x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{-1}{-\csc^2x}=\sin^2x\to1\)。
+## B44 ;; A22 ;; 變化題 ;; 0·∞ 化成分式 ;; \lim_{x\to\pi/2}(\pi-2x)\tan x ;; 2
+- 改寫 \(\dfrac{\pi-2x}{\cot x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{-2}{-\csc^2x}=2\sin^2x\to2\)。
+## B45 ;; A23 ;; 變化題 ;; ∞−∞ 化成分式 ;; \lim_{x\to0}\left(\frac1x-\frac1{\sin x}\right) ;; 0
+- 通分:\(\dfrac{\sin x-x}{x\sin x}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{\cos x-1}{\sin x+x\cos x}\),仍是 \(\frac00\);再一次:\(\dfrac{-\sin x}{2\cos x-x\sin x}\to\dfrac02=0\)。
+## B46 ;; A24 ;; 變化題 ;; ∞−∞ 通分、洛必達兩次 ;; \lim_{x\to0}\left(\frac1x-\frac1{e^x-1}\right) ;; \frac12
+- 通分:\(\dfrac{e^x-1-x}{x(e^x-1)}\),為 \(\frac00\)。
+- 洛必達:\(\dfrac{e^x-1}{e^x-1+xe^x}\),仍是 \(\frac00\);再一次:\(\dfrac{e^x}{2e^x+xe^x}\to\dfrac12\)。
+## B47 ;; A24 ;; 變化題 ;; ∞−∞ 通分、洛必達兩次 ;; \lim_{x\to1}\left(\frac1{x-1}-\frac1{\ln x}\right) ;; -\frac12
+- 這是 A24 前後對調,等於 \(-\left(\dfrac1{\ln x}-\dfrac1{x-1}\right)\)。
+- A24 的極限為 \(\dfrac12\),所以答案 \(-\dfrac12\)(步驟同 A24:通分後洛必達兩次)。
+## B48 ;; A25 ;; 換數字 ;; 取 ln、洛必達 ;; \lim_{x\to\infty}\left(3+e^{x}\right)^{1/x} ;; e
+- \(\infty^0\) 型,取 ln:\(\dfrac{\ln(3+e^x)}{x}\),\(\frac\infty\infty\)。
+- 洛必達:\(\dfrac{e^x}{3+e^x}=\dfrac1{3e^{-x}+1}\to1\),答案 \(e\)。
+## B49 ;; A25 ;; 換數字 ;; 取 ln、洛必達 ;; \lim_{x\to\infty}\left(1+e^{3x}\right)^{1/x} ;; e^3
+- 取 ln:\(\dfrac{\ln(1+e^{3x})}{x}\),\(\frac\infty\infty\)。
+- 洛必達:\(\dfrac{3e^{3x}}{1+e^{3x}}\to3\),答案 \(e^3\)。
+## B50 ;; A25 ;; 變化題 ;; 取 ln、洛必達 ;; \lim_{x\to\infty}x^{1/x} ;; 1
+- \(\infty^0\) 型,取 ln:\(\dfrac{\ln x}{x}\),\(\frac\infty\infty\)。
+- 洛必達:\(\dfrac1x\to0\),\(\ln y\to0\),答案 \(e^0=1\)。
+`;
+const PB = RAWB.trim().split(/^## /m).filter(Boolean).map(b=>{
+  const L=b.trim().split('\n'), h=L[0].split(' ;; ');
+  return {id:h[0].trim(),a:h[1].trim(),kind:h[2].trim(),tag:h[3].trim(),q:h[4].trim(),ans:h[5].trim(),steps:L.slice(1).map(s=>s.replace(/^- /,''))};
+});
+const listB=document.getElementById('listB'), navB=document.getElementById('navB');
+PB.forEach(p=>{
+  const n=document.createElement('a'); n.href='#'+p.id; n.dataset.go=p.id; n.textContent=p.id; navB.appendChild(n);
+  const d=document.createElement('section'); d.className='q b'; d.id=p.id;
+  d.innerHTML='<div class="hd"><span class="id">'+p.id+'</span><span class="tag t b">延伸</span><span class="tag v">'+p.kind+'</span><span class="tag b">'+p.tag+'</span></div>'
+   +'<div class="rel">對應原題 <a href="#'+p.a+'" data-go="'+p.a+'">'+p.a+'</a></div>'
+   +'<div class="prob">\\[ '+p.q+' \\]</div>'
+   +'<button class="btn b" aria-expanded="false">看詳解</button>'
+   +'<div class="sol"><ol>'+p.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><div class="ans">答案:\\( '+p.ans+' \\)</div></div>';
+  listB.appendChild(d);
+});
+P.forEach(p=>{
+  const r=PB.filter(x=>x.a===p.id); if(!r.length) return;
+  const e=document.createElement('div'); e.className='rel';
+  e.innerHTML='相關延伸題:'+r.map(x=>'<a href="#'+x.id+'" data-go="'+x.id+'">'+x.id+'</a>').join('、');
+  document.getElementById(p.id).appendChild(e);
+});
+listB.addEventListener('click',e=>{
+  const b=e.target.closest('.btn'); if(!b) return;
+  const sol=b.nextElementSibling, open=sol.classList.toggle('open');
+  b.textContent=open?'收起詳解':'看詳解'; b.setAttribute('aria-expanded',open);
+  if(open&&!sol.dataset.done){sol.dataset.done=1;typeset(sol);}
+});
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(!g) return;
+  e.preventDefault(); const id=g.dataset.go; show(id[0]);
+  const el=document.getElementById(id); if(el) el.scrollIntoView({block:'start'});
+});
+
+function typeset(el){ if(window.MathJax&&MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(()=>{}); }
+listA.addEventListener('click',e=>{
+  const b=e.target.closest('.btn'); if(!b) return;
+  const sol=b.nextElementSibling, open=sol.classList.toggle('open');
+  b.textContent=open?'收起詳解':'看詳解'; b.setAttribute('aria-expanded',open);
+  if(open&&!sol.dataset.done){sol.dataset.done=1;typeset(sol);}
+});
+function show(w){
+  const a=w==='A';
+  document.getElementById('viewA').hidden=!a; document.getElementById('viewB').hidden=a;
+  document.getElementById('tA').classList.toggle('on',a); document.getElementById('tB').classList.toggle('on',!a);
+}
+document.getElementById('tA').onclick=()=>show('A');
+document.getElementById('tB').onclick=()=>show('B');
+const t0=setInterval(()=>{ if(window.MathJax&&MathJax.typesetPromise){clearInterval(t0);typeset(document.getElementById('listA'));typeset(document.getElementById('listB'));typeset(document.querySelector('.sum'));} },100);
+</script>
+</body>
+</html>
