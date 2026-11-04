@@ -38,6 +38,7 @@ details.sum summary{font-weight:700;cursor:pointer}
 .sol li{margin:6px 0;overflow-x:auto}
 .ans{margin-top:8px;padding:8px 12px;background:var(--a-bg);border-radius:6px;font-weight:700;color:var(--ok);overflow-x:auto}
 .q.b .id,.rel a.bb{color:var(--b)}.tag.b{background:var(--b-bg);color:var(--b)}.tag.v{background:transparent;border:1px solid var(--line);color:var(--mute)}.btn.b{border-color:var(--b);color:var(--b)}.rel{margin-top:6px;font-size:.88rem;color:var(--mute)}.rel a{color:var(--a);font-weight:700;text-decoration:none;padding:2px 4px}#navB a{color:var(--b)}#navB a:hover,.nav a:hover{background:var(--line)}
+.flagbar{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0}.fh{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}.fh label{font-size:.9rem;cursor:pointer}.flag{margin-left:auto;padding:2px 10px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--mute);font:inherit;font-size:.85rem;cursor:pointer}.q.flagged{box-shadow:0 0 0 2px #d33}.q.flagged .flag{background:#d33;border-color:#d33;color:#fff}.fnote{display:none;margin:6px 0}.q.flagged .fnote{display:block}.fnote input{width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}.fonly .q:not(.flagged){display:none}.fempty{color:var(--mute);font-size:.88rem}#flagNav{margin:8px 0 0}#flagNav a{border-color:#d33}.flag:focus-visible,.fnote input:focus-visible{outline:3px solid var(--a);outline-offset:2px}
 .wait{padding:24px;text-align:center;color:var(--mute);background:var(--card);border:1px dashed var(--line);border-radius:8px}
 </style>
 </head>
@@ -49,6 +50,7 @@ details.sum summary{font-weight:700;cursor:pointer}
 <button class="tab a on" id="tA" role="tab">原題 25 題</button>
 <button class="tab b" id="tB" role="tab">延伸題 50 題</button>
 </div>
+<div class="flagbar"><div class="fh"><b>🚩 已標註 <span id="fcnt">0</span> 題</b><label><input type="checkbox" id="fonly"> 只顯示已標註</label></div><div class="nav" id="flagNav"></div></div>
 <div id="viewA">
 <details class="sum"><summary>公式總整理(點開)</summary>
 <ol>
@@ -371,6 +373,38 @@ document.addEventListener('click',e=>{
   const el=document.getElementById(id); if(el) el.scrollIntoView({block:'start'});
 });
 
+let FL={}; try{FL=JSON.parse(localStorage.getItem('lim_flags')||'{}')||{}}catch(e){FL={}}
+function saveFL(){try{localStorage.setItem('lim_flags',JSON.stringify(FL))}catch(e){}}
+function renderChips(){
+  const nav=document.getElementById('flagNav'); nav.innerHTML=''; let c=0;
+  document.querySelectorAll('section.q').forEach(s=>{
+    if(!FL[s.id]) return; c++;
+    const a=document.createElement('a'); a.href='#'+s.id; a.dataset.go=s.id; a.textContent=s.id; a.title=FL[s.id].note||''; nav.appendChild(a);
+  });
+  document.getElementById('fcnt').textContent=c;
+  if(!c){const m=document.createElement('span'); m.className='fempty'; m.textContent='還沒有標註,點題目右上角的 🚩 就能標註。'; nav.appendChild(m);}
+}
+function applyFlag(s){
+  const on=!!FL[s.id]; s.classList.toggle('flagged',on);
+  const b=s.querySelector('.flag'); b.textContent=on?'🚩 已標註':'🚩 標註'; b.setAttribute('aria-pressed',on);
+  s.querySelector('.fnote input').value=on?(FL[s.id].note||''):'';
+}
+document.querySelectorAll('section.q').forEach(s=>{
+  const f=document.createElement('button'); f.className='flag'; f.type='button'; s.querySelector('.hd').appendChild(f);
+  const w=document.createElement('div'); w.className='fnote'; w.innerHTML='<input type="text" maxlength="80" placeholder="提醒備註(例如:負號容易錯)" aria-label="'+s.id+' 備註">';
+  s.insertBefore(w,s.querySelector('.prob'));
+  w.querySelector('input').addEventListener('input',e=>{ if(FL[s.id]){FL[s.id].note=e.target.value; saveFL(); renderChips();} });
+  applyFlag(s);
+});
+renderChips();
+document.addEventListener('click',e=>{
+  const f=e.target.closest('.flag'); if(!f) return;
+  const s=f.closest('section.q');
+  if(FL[s.id]) delete FL[s.id]; else FL[s.id]={note:''};
+  saveFL(); applyFlag(s); renderChips();
+  if(FL[s.id]) s.querySelector('.fnote input').focus();
+});
+document.getElementById('fonly').addEventListener('change',e=>{document.body.classList.toggle('fonly',e.target.checked);});
 function typeset(el){ if(window.MathJax&&MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(()=>{}); }
 listA.addEventListener('click',e=>{
   const b=e.target.closest('.btn'); if(!b) return;
